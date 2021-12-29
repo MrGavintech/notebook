@@ -15,15 +15,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // @ts-ignore
-    let stuff = JSON.parse(sessionStorage.getItem('notes')) === null ? [] :
+    let menuNotes = JSON.parse(sessionStorage.getItem('notes')) === null ? [] :
       // @ts-ignore
       JSON.parse(sessionStorage.getItem('notes'));
-    if (stuff.length > 0) {
-      this.numNotes = Array.from(stuff);
+    if (menuNotes.length > 0) {
+      this.numNotes = Array.from(menuNotes);
     }
     this.menuService.getMenuNotes()
-      .subscribe(message => {
-          this.numNotes = message;
+      .subscribe(menuNotes => {
+          this.numNotes = menuNotes;
         }
       )
   }
