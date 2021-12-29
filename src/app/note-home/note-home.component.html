@@ -1,0 +1,14 @@
+<h3 style="padding: 20px;" [hidden]="this.numNotes.length != 0">You have {{this.numNotes.length}} notes. Press the add
+  button below to add a note.</h3>
+<h3 style="padding: 20px;" [hidden]="this.numNotes.length === 0">You have {{this.numNotes.length}} notes.</h3>
+<div class="fixedbutton">
+  <button (click)="addNote()" mat-fab color="primary" aria-label="Add a note!">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+<mat-grid-list cols="2" rowHeight="3:1">
+  <mat-grid-tile style="cursor: pointer;" *ngFor="let note of numNotes" [routerLink]="['/note', note]">
+    <mat-icon style="vertical-align: text-bottom">sticky_note_2</mat-icon>
+    Note {{note}}
+  </mat-grid-tile>
+</mat-grid-list>

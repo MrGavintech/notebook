@@ -1,0 +1,9 @@
+<form [formGroup]="form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>
+      <span><mat-icon>sticky_note_2</mat-icon> Begin taking a note...</span>
+    </mat-label>
+    <textarea formControlName="noteTextArea" matInput>{{this.note.text}}</textarea>
+  </mat-form-field>
+</form>
+
