@@ -7,3 +7,10 @@ textarea {
   min-height: 250px;
   max-height: 800px;
 }
+
+.mat-trash {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1;
+}

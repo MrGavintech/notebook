@@ -30,14 +30,4 @@ export class NoteHomeComponent implements OnInit {
     }
   }
 
-  removeNote() {
-    if (this.notes.length > 0) {
-      // @ts-ignore
-      let id = this.numNotes.pop();
-      sessionStorage.setItem('notes', JSON.stringify(this.notes));
-      sessionStorage.setItem('note' + id, JSON.stringify(<Note>({})))
-      this.noteService.menuNotes(this.notes);
-    }
-  }
-
 }

@@ -38,7 +38,7 @@ export class NoteComponent implements OnInit {
   }
 
   getNote() {
-    let note = this.findNote();
+    let note = this.noteService.findNote(this.id);
     this.form.controls['noteTextArea'].setValue(note.text);
   }
 
@@ -53,18 +53,14 @@ export class NoteComponent implements OnInit {
       )
       .subscribe((textAreaData) => {
         let notes = this.sessionService.getSession('notes');
-        let note = this.findNote()
-        this.noteService.updateNote(textAreaData, note, notes);
+        let note = this.noteService.findNote(this.id);
+        this.noteService.updateNote(false, textAreaData, note, notes);
       });
   }
 
-  findNote(): Note {
+  removeNote() {
     let notes = this.sessionService.getSession('notes');
-    let note = notes.find((el) => {
-      let id = parseInt(<string>this.id)
-      return el.id === id;
-    });
-    return note;
+    let note = this.noteService.findNote(this.id);
+    this.noteService.removeNote(note, notes);
   }
-
 }
