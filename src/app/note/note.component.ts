@@ -4,6 +4,7 @@ import {debounceTime, distinctUntilChanged, fromEvent, map} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Note} from "../app.component";
 import {SessionService} from "../services/session/session.service";
+import {NoteService} from "../services/note/note.service";
 
 @Component({
   selector: 'app-note',
@@ -19,7 +20,8 @@ export class NoteComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
-              private sessionService: SessionService) {
+              private sessionService: SessionService,
+              private noteService: NoteService) {
   }
 
   ngOnInit(): void {
@@ -52,13 +54,14 @@ export class NoteComponent implements OnInit {
       .subscribe((textAreaData) => {
         let notes = this.sessionService.getSession('notes');
         let note = this.findNote()
-        note.text = textAreaData;
-        let newNotes: Array<Note> = [note]
-        const updatedNotes = notes.map(originalNotes => {
-          const newNote = newNotes.find(({id}) => id === originalNotes.id);
-          return newNote ? newNote : originalNotes; // returns new note if we find it || original
-        });
-        this.sessionService.setSession('notes', updatedNotes);
+        // note.text = textAreaData;
+        // let newNotes: Array<Note> = [note]
+        // const updatedNotes = notes.map(originalNotes => {
+        //   const newNote = newNotes.find(({id}) => id === originalNotes.id);
+        //   return newNote ? newNote : originalNotes; // returns new note if we find it || original
+        // });
+        // this.sessionService.setSession('notes', updatedNotes);
+        this.noteService.updateNote(textAreaData, note, notes);
       });
   }
 
