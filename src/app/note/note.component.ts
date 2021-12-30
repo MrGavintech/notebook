@@ -25,6 +25,8 @@ export class NoteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('note component'
+    )
     this.getNoteId();
     this.saveNote();
   }
@@ -40,6 +42,7 @@ export class NoteComponent implements OnInit {
   getNote() {
     let note = this.noteService.findNote(this.id);
     this.form.controls['noteTextArea'].setValue(note.text);
+    // this.noteService.triggerSelectedNote(note);
   }
 
   saveNote() {
@@ -48,7 +51,7 @@ export class NoteComponent implements OnInit {
       .pipe(
         // @ts-ignore
         map((event) => event.target.value),
-        debounceTime(500),
+        debounceTime(200),
         distinctUntilChanged(),
       )
       .subscribe((textAreaData) => {
@@ -62,5 +65,6 @@ export class NoteComponent implements OnInit {
     let notes = this.sessionService.getSession('notes');
     let note = this.noteService.findNote(this.id);
     this.noteService.removeNote(note, notes);
+    this.noteService.triggerSelectedNote(<Note>({}))
   }
 }

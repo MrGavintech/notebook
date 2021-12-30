@@ -12,6 +12,7 @@ import {MatCommonModule} from "@angular/material/core";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     MatToolbarModule,
     MatGridListModule,
     MatFormFieldModule,
-    MatCardModule
+    MatCardModule,
+    MatTooltipModule,
   ],
   exports: [
     MatButtonModule,
@@ -38,7 +40,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     MatToolbarModule,
     MatGridListModule,
     MatFormFieldModule,
-    MatCardModule
+    MatCardModule,
+    MatTooltipModule
   ]
 })
 export class MaterialModule {

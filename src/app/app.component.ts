@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NoteService} from "./services/note/note.service";
 import {SessionService} from "./services/session/session.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {NavigationEnd, Router} from "@angular/router";
+import {Subscription} from "rxjs";
+import {TooltipPosition} from "@angular/material/tooltip";
 
 export interface Note {
   id: number;
@@ -14,45 +16,44 @@ export interface Note {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  title = 'My notebook';
+export class AppComponent implements OnInit, OnDestroy {
+  static NOTE_HOME_TITLE: string = 'My notebook';
+  static NOTE_SELECTED_ID: string = 'Note: '
+  title: string = AppComponent.NOTE_HOME_TITLE;
   notes: Array<Note> = [];
   limit: number = 1;
+  private subscriptions = new Subscription();
+  positionOptions: TooltipPosition[] = ['right'];
 
   constructor(private noteService: NoteService,
               private sessionService: SessionService,
               private router: Router) {
   }
 
-  ngOnInit(): void {
-    // @ts-ignore
-    let sessionNotes = this.sessionService.getSession('notes');
-    this.notes = sessionNotes;
-    if (sessionNotes.length <= 0) {
-      this.notes = sessionNotes;
-      this.noteService.getMenuNotes()
-        .subscribe(menuNotes => {
-            console.log(menuNotes);
-            this.notes = menuNotes;
-            if (menuNotes.length === 0) {
-              this.title = 'My notebook';
-            }
-          }
-        )
-    }
-    this.setPageTitle(false);
-    this.addNote();
+  ngOnDestroy(): void {
+    console.warn('destroyed');
+    this.subscriptions.unsubscribe();
   }
 
-  setPageTitle(isHomeSelected: boolean): void {
-    if (isHomeSelected) {
-      this.title = 'My notebook'
-    } else {
-      this.noteService.selectedNote()
-        .subscribe((note) => {
-          this.title = note.id.toString();
-        });
-    }
+  ngOnInit(): void {
+    // @ts-ignore
+    this.notes = this.sessionService.getSession('notes');
+    this.router.events.subscribe((route) => {
+      if (route instanceof NavigationEnd) {
+        if (this.router.url === '/') {
+          this.title = AppComponent.NOTE_HOME_TITLE;
+        } else {
+          let id = this.router.url.replace('/note/', '')
+          this.title = AppComponent.NOTE_SELECTED_ID + id;
+        }
+      }
+    })
+    this.subscriptions = this.noteService.getMenuNotes()
+      .subscribe(menuNotes => {
+          this.notes = menuNotes;
+        }
+      )
+    this.addNote();
   }
 
   selectedNote(note: any): void {

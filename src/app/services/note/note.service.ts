@@ -28,7 +28,6 @@ export class NoteService {
       const newNote = newNotes.find(({id}) => id === originalNotes.id);
       return newNote ? newNote : originalNotes; // returns new note if we find it || original
     });
-    console.log(updatedNotes);
     this.sessionService.setSession('notes', updatedNotes);
   }
 

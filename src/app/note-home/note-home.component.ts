@@ -25,7 +25,8 @@ export class NoteHomeComponent implements OnInit {
   addNote() {
     if (this.notes.length < this.limit) {
       let id = new Date().getTime();
-      this.notes.push(<Note><unknown>({id: id, text: '', date: ''}))
+      let note: Note = <Note><unknown>({id: id, text: '', date: ''});
+      this.notes.push(note)
       this.sessionService.setSession('notes', this.notes);
       this.noteService.menuNotes(this.notes);
     }
