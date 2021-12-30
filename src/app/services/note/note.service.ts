@@ -35,6 +35,7 @@ export class NoteService {
     let removeIndex = notes.map(item => item.id).indexOf(note.id);
     notes.splice(removeIndex, 1);
     this.updateNote(true, '', note, notes);
+    this.menuNotes(notes);
   }
 
   findNote(id: string | null | undefined): Note {

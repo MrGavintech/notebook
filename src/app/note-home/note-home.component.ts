@@ -10,6 +10,7 @@ import {SessionService} from "../services/session/session.service";
 })
 export class NoteHomeComponent implements OnInit {
   notes: Array<Note> = [];
+  limit: number = 5;
 
   constructor(private noteService: NoteService,
               private sessionService: SessionService) {
@@ -22,8 +23,8 @@ export class NoteHomeComponent implements OnInit {
   }
 
   addNote() {
-    if (this.notes.length < 5) {
-      let id = this.notes.length + 1;
+    if (this.notes.length < this.limit) {
+      let id = new Date().getTime();
       this.notes.push(<Note><unknown>({id: id, text: '', date: ''}))
       this.sessionService.setSession('notes', this.notes);
       this.noteService.menuNotes(this.notes);

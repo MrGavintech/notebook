@@ -5,10 +5,10 @@
     </div>
     <mat-nav-list>
       <a mat-list-item (click)="clickId(note.id)"
-         *ngFor="let note of notes"
+         *ngFor="let note of notes; let i = index"
          [routerLink]="['/note', note.id]">
         <mat-icon>sticky_note_2</mat-icon>
-        Note {{note.id}}
+        Note {{i}}
       </a>
     </mat-nav-list>
   </mat-sidenav>
