@@ -6,7 +6,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 export interface Note {
   id: string;
   text?: string;
-  user: string;
+  date: string;
 }
 
 @Component({
@@ -55,7 +55,7 @@ export class NoteComponent implements OnInit {
         sessionStorage.setItem('note' + this.id, JSON.stringify(<Note>({
           id: this.id,
           text: value,
-          user: ''
+          date: ''
         })))
       });
   }

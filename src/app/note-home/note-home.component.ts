@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {MenuService} from "../services/menu-service/menu.service";
 import {Note} from "../note/note.component";
+import {NoteService} from "../services/note/note.service";
 
 @Component({
   selector: 'app-note-home',
@@ -10,13 +10,13 @@ import {Note} from "../note/note.component";
 export class NoteHomeComponent implements OnInit {
   numNotes = [];
 
-  constructor(private menuService: MenuService) {
+  constructor(private noteService: NoteService) {
   }
 
   ngOnInit(): void {
     // @ts-ignore
     this.numNotes = sessionStorage.getItem('notes') === null ? [] : JSON.parse(sessionStorage.getItem('notes'));
-    this.menuService.menuNotes(this.numNotes);
+    this.noteService.menuNotes(this.numNotes);
   }
 
   addNote() {
@@ -24,7 +24,7 @@ export class NoteHomeComponent implements OnInit {
       // @ts-ignore
       this.numNotes.push(this.numNotes.length + 1);
       sessionStorage.setItem('notes', JSON.stringify(this.numNotes));
-      this.menuService.menuNotes(this.numNotes);
+      this.noteService.menuNotes(this.numNotes);
     }
   }
 
@@ -34,7 +34,8 @@ export class NoteHomeComponent implements OnInit {
       let id = this.numNotes.pop();
       sessionStorage.setItem('notes', JSON.stringify(this.numNotes));
       sessionStorage.setItem('note' + id, JSON.stringify(<Note>({})))
-      this.menuService.menuNotes(this.numNotes);
+      this.noteService.menuNotes(this.numNotes);
     }
   }
+
 }

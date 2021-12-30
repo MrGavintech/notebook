@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MenuService} from "./services/menu-service/menu.service";
+import {NoteService} from "./services/note/note.service";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   title = 'My notebook';
   numNotes = []
 
-  constructor(private menuService: MenuService) {
+  constructor(private noteService: NoteService) {
   }
 
   ngOnInit(): void {
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     if (menuNotes.length > 0) {
       this.numNotes = Array.from(menuNotes);
     }
-    this.menuService.getMenuNotes()
+    this.noteService.getMenuNotes()
       .subscribe(menuNotes => {
           this.numNotes = menuNotes;
         }
@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
   }
 
   clickId(note: any) {
+    console.log(note);
     // this.title = note;
   }
 }
