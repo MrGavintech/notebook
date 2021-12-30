@@ -8,6 +8,7 @@ import {SessionService} from "../session/session.service";
 })
 export class NoteService {
   public notes = new Subject<Array<Note>>();
+  public currentNote = new Subject<Note>();
 
   constructor(private sessionService: SessionService) {
   }
@@ -45,6 +46,14 @@ export class NoteService {
       return el.id === parsedID;
     });
     return note;
+  }
+
+  triggerSelectedNote(note: Note): void {
+    this.currentNote.next(note);
+  }
+
+  selectedNote(): Observable<Note> {
+    return this.currentNote.asObservable();
   }
 
 }

@@ -31,4 +31,7 @@ export class NoteHomeComponent implements OnInit {
     }
   }
 
+  selectedNote(note: any) {
+    this.noteService.triggerSelectedNote(note);
+  }
 }

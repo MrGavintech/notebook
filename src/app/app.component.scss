@@ -6,17 +6,27 @@
   right: 0;
 }
 
+mat-sidenav {
+  width: 114px;
+}
+
 .mat-icon {
   padding: 0 6px 0 0;
 }
 
 .title {
-  padding: 16px 16px 16px 16px;
   box-shadow: 0 1px 3px black;
+  padding-bottom: 10px;
 }
 
 .sub-title {
+  text-align: center;
   opacity: 0.6;
   font-size: 13px;
 }
 
+.mat-home {
+  cursor: pointer;
+  font-size: 60px;
+  padding: 10px 0 40px 25px;
+}
