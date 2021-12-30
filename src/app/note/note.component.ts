@@ -2,12 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {debounceTime, distinctUntilChanged, fromEvent, map} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
-
-export interface Note {
-  id: string;
-  text?: string;
-  date: string;
-}
+import {Note} from "../app.component";
+import {SessionService} from "../services/session/session.service";
 
 @Component({
   selector: 'app-note',
@@ -21,25 +17,27 @@ export class NoteComponent implements OnInit {
     noteTextArea: []
   });
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder) {
-
+  constructor(private route: ActivatedRoute,
+              private fb: FormBuilder,
+              private sessionService: SessionService) {
   }
 
   ngOnInit(): void {
-    this.getNote();
+    this.getNoteId();
     this.saveNote();
   }
 
-  getNote() {
+  getNoteId() {
     this.route.paramMap.subscribe(paramMap => {
       this.id = paramMap.get(('id'));
       this.note.text = '';
-      // @ts-ignore
-      this.note = sessionStorage.getItem('note' + this.id) === null ? <Note>({}) :
-        // @ts-ignore
-        JSON.parse(sessionStorage.getItem('note' + this.id));
-      this.form.controls['noteTextArea'].setValue(this.note.text);
+      this.getNote();
     })
+  }
+
+  getNote() {
+    let note = this.findNote();
+    this.form.controls['noteTextArea'].setValue(note.text);
   }
 
   saveNote() {
@@ -51,13 +49,26 @@ export class NoteComponent implements OnInit {
         debounceTime(500),
         distinctUntilChanged(),
       )
-      .subscribe((value) => {
-        sessionStorage.setItem('note' + this.id, JSON.stringify(<Note>({
-          id: this.id,
-          text: value,
-          date: ''
-        })))
+      .subscribe((textAreaData) => {
+        let notes = this.sessionService.getSession('notes');
+        let note = this.findNote()
+        note.text = textAreaData;
+        let newNotes: Array<Note> = [note]
+        const updatedNotes = notes.map(originalNotes => {
+          const newNote = newNotes.find(({id}) => id === originalNotes.id);
+          return newNote ? newNote : originalNotes; // returns new note if we find it || original
+        });
+        this.sessionService.setSession('notes', updatedNotes);
       });
+  }
+
+  findNote(): Note {
+    let notes = this.sessionService.getSession('notes');
+    let note = notes.find((el) => {
+      let id = parseInt(<string>this.id)
+      return el.id === id;
+    });
+    return note;
   }
 
 }

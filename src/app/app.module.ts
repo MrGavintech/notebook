@@ -8,6 +8,7 @@ import {AppRoutingModule} from "./app.routing.module";
 import {NotFoundComponent} from './not-found/not-found.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {NoteHomeComponent} from './note-home/note-home.component';
+import {NoteService} from "./services/note/note.service";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import {NoteHomeComponent} from './note-home/note-home.component';
     ReactiveFormsModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [NoteService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Note} from "../note/note.component";
 import {NoteService} from "../services/note/note.service";
+import {Note} from "../app.component";
+import {SessionService} from "../services/session/session.service";
 
 @Component({
   selector: 'app-note-home',
@@ -8,34 +9,37 @@ import {NoteService} from "../services/note/note.service";
   styleUrls: ['./note-home.component.css']
 })
 export class NoteHomeComponent implements OnInit {
-  numNotes = [];
+  notes: Array<Note> = [];
 
-  constructor(private noteService: NoteService) {
+  constructor(private noteService: NoteService,
+              private sessionService: SessionService) {
   }
 
   ngOnInit(): void {
     // @ts-ignore
-    this.numNotes = sessionStorage.getItem('notes') === null ? [] : JSON.parse(sessionStorage.getItem('notes'));
-    this.noteService.menuNotes(this.numNotes);
+    this.notes = this.sessionService.getSession('notes');
+    this.noteService.menuNotes(this.notes);
   }
 
   addNote() {
-    if (this.numNotes.length < 5) {
-      // @ts-ignore
-      this.numNotes.push(this.numNotes.length + 1);
-      sessionStorage.setItem('notes', JSON.stringify(this.numNotes));
-      this.noteService.menuNotes(this.numNotes);
+    if (this.notes.length < 5) {
+      let id = this.notes.length + 1;
+      this.notes.push(<Note><unknown>({id: id, text: '', date: ''}))
+      this.sessionService.setSession('notes', this.notes);
+      this.noteService.menuNotes(this.notes);
     }
+    console.log(this.notes);
   }
 
   removeNote() {
-    if (this.numNotes.length > 0) {
+    if (this.notes.length > 0) {
       // @ts-ignore
       let id = this.numNotes.pop();
-      sessionStorage.setItem('notes', JSON.stringify(this.numNotes));
+      sessionStorage.setItem('notes', JSON.stringify(this.notes));
       sessionStorage.setItem('note' + id, JSON.stringify(<Note>({})))
-      this.noteService.menuNotes(this.numNotes);
+      this.noteService.menuNotes(this.notes);
     }
+    console.log(this.notes);
   }
 
 }

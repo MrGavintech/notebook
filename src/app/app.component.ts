@@ -1,5 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {NoteService} from "./services/note/note.service";
+import {SessionService} from "./services/session/session.service";
+
+export interface Note {
+  id: number;
+  text?: string;
+  date: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -8,24 +15,24 @@ import {NoteService} from "./services/note/note.service";
 })
 export class AppComponent implements OnInit {
   title = 'My notebook';
-  numNotes = []
+  notes: Array<Note> = [];
 
-  constructor(private noteService: NoteService) {
+  constructor(private noteService: NoteService,
+              private sessionService: SessionService) {
   }
 
   ngOnInit(): void {
     // @ts-ignore
-    let menuNotes = JSON.parse(sessionStorage.getItem('notes')) === null ? [] :
-      // @ts-ignore
-      JSON.parse(sessionStorage.getItem('notes'));
-    if (menuNotes.length > 0) {
-      this.numNotes = Array.from(menuNotes);
+    let sessionNotes = this.sessionService.getSession('notes');
+    this.notes = sessionNotes;
+    if (sessionNotes.length <= 0) {
+      this.notes = sessionNotes;
+      this.noteService.getMenuNotes()
+        .subscribe(menuNotes => {
+            this.notes = menuNotes;
+          }
+        )
     }
-    this.noteService.getMenuNotes()
-      .subscribe(menuNotes => {
-          this.numNotes = menuNotes;
-        }
-      )
   }
 
   clickId(note: any) {
