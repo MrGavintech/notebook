@@ -54,13 +54,6 @@ export class NoteComponent implements OnInit {
       .subscribe((textAreaData) => {
         let notes = this.sessionService.getSession('notes');
         let note = this.findNote()
-        // note.text = textAreaData;
-        // let newNotes: Array<Note> = [note]
-        // const updatedNotes = notes.map(originalNotes => {
-        //   const newNote = newNotes.find(({id}) => id === originalNotes.id);
-        //   return newNote ? newNote : originalNotes; // returns new note if we find it || original
-        // });
-        // this.sessionService.setSession('notes', updatedNotes);
         this.noteService.updateNote(textAreaData, note, notes);
       });
   }

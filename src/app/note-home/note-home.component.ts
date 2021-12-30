@@ -28,7 +28,6 @@ export class NoteHomeComponent implements OnInit {
       this.sessionService.setSession('notes', this.notes);
       this.noteService.menuNotes(this.notes);
     }
-    console.log(this.notes);
   }
 
   removeNote() {
@@ -39,7 +38,6 @@ export class NoteHomeComponent implements OnInit {
       sessionStorage.setItem('note' + id, JSON.stringify(<Note>({})))
       this.noteService.menuNotes(this.notes);
     }
-    console.log(this.notes);
   }
 
 }
