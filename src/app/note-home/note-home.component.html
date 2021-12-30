@@ -11,9 +11,6 @@
     (click)="selectedNote(note)"
     style="cursor: pointer;"
     *ngFor="let note of notes" [routerLink]="['/note', note.id]">
-    <div class="mat-note">
-      <mat-icon style="vertical-align: text-bottom">sticky_note_2</mat-icon>
-    </div>
     Note {{note.id}}
   </mat-grid-tile>
 </mat-grid-list>
