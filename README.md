@@ -8,6 +8,8 @@ When time permits, these are the following items I'd like to address in the code
 * Clean up linting issues and remove inline lint comments
 * Add unit tests with JEST or similar
 * Change UI theme and add a more robust UX
+* Remove some unnecessary classes and folders from structure
+* Refactor some of the code for a simpler implementation
 
 
 ## Development server
