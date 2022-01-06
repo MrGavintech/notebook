@@ -1,13 +1,13 @@
 # Notebook
 
-This app uses Session storage to store user notes, angular material for a quick layout, and a basic structure to allow for a simple state management w/out the use of any 3rd party libraries. This was just a sample project I did for an interview requirement. The project was timed, so I always feel like there's room for improvement on a timed exercise. The primary requirement was to allow note taking on the initial page. Also it was to not to lose the users information upon navigation to the same app in a new tab, or refreshes. It was limited to 5 notes.
+This app uses Session storage to store user notes. It uses angular material for a simple layout, and simple state management using basic RxJS w/out the use of any 3rd party state managers. This was a quick project I did for an interview requirement. The primary requirement was to allow note taking on the initial page that displayed. Also, the requirement said it shouldn't duplicate the users notes upon navigation to the same app in a new tab, or lose data in any tab session for refreshes. It was limited to 5 notes.
 
 ## What could be better and worked as issue requests?
-When time permits, these are the following items I'd like to address in the code base
+The project was timed, so I always feel like there's room for improvement on a timed exercise. These are the following items I'd like to address in the code base
 * More robust state manager such as redux or simpler like Dan's observable store
 * Clean up linting issues and remove inline lint comments
 * Add unit tests with JEST or similar
-* Change UI theme and add a more robust UX
+* Change UI theme and add a more robust UX for note taking
 * Remove some unnecessary classes and folders from structure
 * Refactor some of the code for a simpler implementation
 
