@@ -8,12 +8,12 @@ Watch a [Video](https://drive.google.com/file/d/1pR4df6OglP1i4YFOMSz3P-arZLrgMXO
 
 ## What could be better and worked as issue requests?
 The project was timed, so I always feel like there's room for improvement on a timed exercise. These are the following items I'd like to address in the code base
+* Refactor some of the code for a simpler implementation
 * More robust state manager such as redux or simpler like Dan's observable store
 * Clean up linting issues and remove inline lint comments
 * Add unit tests with JEST or similar
 * Change UI theme and add a more robust UX for note taking
 * Remove some unnecessary classes and folders from structure
-* Refactor some of the code for a simpler implementation
 
 
 ## Development server
