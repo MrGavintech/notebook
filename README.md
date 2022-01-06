@@ -1,6 +1,6 @@
 # Notebook
 
-This app uses Session storage to store user notes, angular material for a quick layout, and a basic structure to allow for a simple state management w/out the use of any 3rd party libraries. This was just a sample project I did for an interview requirement. The project was timed, so I always feel like there's room for improvement on a timed exercise. 
+This app uses Session storage to store user notes, angular material for a quick layout, and a basic structure to allow for a simple state management w/out the use of any 3rd party libraries. This was just a sample project I did for an interview requirement. The project was timed, so I always feel like there's room for improvement on a timed exercise. The primary requirement was to allow note taking on the initial page. Also it was to not to lose the users information upon navigation to the same app in a new tab, or refreshes. It was limited to 5 notes.
 
 ## What could be better and worked as issue requests?
 When time permits, these are the following items I'd like to address in the code base
