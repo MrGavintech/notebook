@@ -13,15 +13,19 @@ export class NoteService {
   constructor(private sessionService: SessionService) {
   }
 
-  menuNotes(notes: Array<any>) {
+  /**
+   * Triggers notes state event
+   * @param notes
+   */
+  triggerNotes(notes: Array<any>) {
     this.notes.next(notes);
   }
 
-  getMenuNotes(): Observable<any> {
+  getNotes(): Observable<any> {
     return this.notes.asObservable();
   }
 
-  updateNote(isDelete: boolean, textAreaData: string, note: Note, notes: Array<Note>): void {
+  updateNote(textAreaData: string, note: Note, notes: Array<Note>): void {
     note.text = textAreaData;
     let newNotes: Array<Note> = [note]
     const updatedNotes = notes.map(originalNotes => {
@@ -34,15 +38,15 @@ export class NoteService {
   removeNote(note: Note, notes: Array<Note>) {
     let removeIndex = notes.map(item => item.id).indexOf(note.id);
     notes.splice(removeIndex, 1);
-    this.updateNote(true, '', note, notes);
-    this.menuNotes(notes);
+    this.updateNote('', note, notes);
+    this.triggerNotes(notes);
   }
 
   findNote(id: string | null | undefined): Note {
     let notes = this.sessionService.getSession('notes');
-    let note = notes.find((el) => {
+    let note = notes.find((note: { id: number; }) => {
       let parsedID = parseInt(<string>id)
-      return el.id === parsedID;
+      return note.id === parsedID;
     });
     return note;
   }

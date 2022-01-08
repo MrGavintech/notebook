@@ -30,14 +30,26 @@ export class AppComponent implements OnInit, OnDestroy {
               private router: Router) {
   }
 
+  ngOnInit(): void {
+    this.notes = this.sessionService.getSession('notes');
+    this.setTitle();
+    this.updateMenu();
+    this.initFirstNote();
+  }
+
   ngOnDestroy(): void {
-    console.warn('destroyed');
     this.subscriptions.unsubscribe();
   }
 
-  ngOnInit(): void {
-    // @ts-ignore
-    this.notes = this.sessionService.getSession('notes');
+  private updateMenu() {
+    this.subscriptions = this.noteService.getNotes()
+      .subscribe(menuNotes => {
+          this.notes = menuNotes;
+        }
+      )
+  }
+
+  private setTitle() {
     this.router.events.subscribe((route) => {
       if (route instanceof NavigationEnd) {
         if (this.router.url === '/') {
@@ -48,25 +60,20 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       }
     })
-    this.subscriptions = this.noteService.getMenuNotes()
-      .subscribe(menuNotes => {
-          this.notes = menuNotes;
-        }
-      )
-    this.addNote();
   }
+
 
   selectedNote(note: any): void {
     this.noteService.triggerSelectedNote(note);
   }
 
-  addNote() {
+  initFirstNote() {
     if (this.notes.length < this.limit) {
       let id = new Date().getTime();
       let note: Note = <Note><unknown>({id: id, text: '', date: ''});
       this.notes.push(<Note>(note));
       this.sessionService.setSession('notes', this.notes);
-      this.noteService.menuNotes(this.notes);
+      this.noteService.triggerNotes(this.notes);
       this.noteService.triggerSelectedNote(note);
       this.router.navigate(['/note', id]);
     }
