@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Note} from "../../app.component";
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +13,10 @@ export class SessionService {
     sessionStorage.setItem(key, JSON.stringify(value));
   }
 
-  updateSession() {
-
-  }
-
-  getSession(key: string): Array<any> {
-    let item = sessionStorage.getItem(key) === null ? [] :
-      // @ts-ignore
-      JSON.parse(sessionStorage.getItem(key));
-    return item;
+  getSession(key: string): any {
+    const item = sessionStorage.getItem(key);
+    return item === null ? [] :
+      JSON.parse(item);
   }
 
 }

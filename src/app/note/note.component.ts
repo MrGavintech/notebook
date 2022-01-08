@@ -25,10 +25,8 @@ export class NoteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('note component'
-    )
     this.getNoteId();
-    this.saveNote();
+    this.saveOnKeyup();
   }
 
   getNoteId() {
@@ -42,22 +40,21 @@ export class NoteComponent implements OnInit {
   getNote() {
     let note = this.noteService.findNote(this.id);
     this.form.controls['noteTextArea'].setValue(note.text);
-    // this.noteService.triggerSelectedNote(note);
   }
 
-  saveNote() {
-    // @ts-ignore
-    fromEvent(document.querySelector('textarea'), 'keyup')
+  saveOnKeyup() {
+    const textAreaEl: HTMLTextAreaElement | null = document.querySelector('textarea');
+    let textArea = textAreaEl === null ? <any>{} : textAreaEl;
+    fromEvent(textArea, 'keyup')
       .pipe(
-        // @ts-ignore
-        map((event) => event.target.value),
+        map((event: any) => event.target.value),
         debounceTime(200),
         distinctUntilChanged(),
       )
       .subscribe((textAreaData) => {
         let notes = this.sessionService.getSession('notes');
         let note = this.noteService.findNote(this.id);
-        this.noteService.updateNote(false, textAreaData, note, notes);
+        this.noteService.updateNote(textAreaData, note, notes);
       });
   }
 

@@ -19,7 +19,7 @@ export class NoteHomeComponent implements OnInit {
   ngOnInit(): void {
     // @ts-ignore
     this.notes = this.sessionService.getSession('notes');
-    this.noteService.menuNotes(this.notes);
+    this.noteService.triggerNotes(this.notes);
   }
 
   addNote() {
@@ -28,7 +28,7 @@ export class NoteHomeComponent implements OnInit {
       let note: Note = <Note><unknown>({id: id, text: '', date: ''});
       this.notes.push(note)
       this.sessionService.setSession('notes', this.notes);
-      this.noteService.menuNotes(this.notes);
+      this.noteService.triggerNotes(this.notes);
     }
   }
 
