@@ -1,15 +1,17 @@
-<form [formGroup]="form">
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>
-      <span><mat-icon>sticky_note_2</mat-icon> Begin taking a note...</span>
-    </mat-label>
-    <textarea formControlName="noteTextArea" matInput>{{this.note.text}}</textarea>
-  </mat-form-field>
-</form>
-
-<div class="mat-trash">
-  <button routerLink="/"
-          (click)="removeNote()" mat-fab color="primary" aria-label="Add a note!">
-    <mat-icon>delete</mat-icon>
-  </button>
+<div class="note">
+  <form [formGroup]="form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>
+        <span><mat-icon>sticky_note_2</mat-icon> Begin taking a note...</span>
+      </mat-label>
+      <textarea formControlName="noteTextArea" matInput>{{this.note.text}}</textarea>
+    </mat-form-field>
+  </form>
+  <div class="mat-trash">
+    <button routerLink="/"
+            (click)="removeNote()" mat-fab color="primary" aria-label="Add a note!">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 </div>
+

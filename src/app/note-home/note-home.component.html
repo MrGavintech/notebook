@@ -1,16 +1,16 @@
-<h3 style="padding: 20px;" [hidden]="this.notes.length != 0">You have {{this.notes.length}} notes. Press the add
-  button to add up to {{limit}} notes.</h3>
-<h3 style="padding: 20px;" [hidden]="this.notes.length === 0">You have {{this.notes.length}} notes.</h3>
-<div class="fixedbutton">
-  <button (click)="addNote()" mat-fab color="primary" aria-label="Add a note!">
-    <mat-icon>add</mat-icon>
-  </button>
+<div class="container">
+  <h3 style="padding: 20px;">{{this.getTitleMessage()}}</h3>
+  <div class="fixedbutton">
+    <button (click)="addNote()" mat-fab color="primary" aria-label="Add a note!">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <mat-grid-list cols="2" rowHeight="1:1">
+    <mat-grid-tile
+      (click)="selectedNote(note)"
+      style="cursor: pointer;"
+      *ngFor="let note of notes" [routerLink]="['/note', note.id]">
+      Note {{note.id}}
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>
-<mat-grid-list cols="2" rowHeight="1:1">
-  <mat-grid-tile
-    (click)="selectedNote(note)"
-    style="cursor: pointer;"
-    *ngFor="let note of notes" [routerLink]="['/note', note.id]">
-    Note {{note.id}}
-  </mat-grid-tile>
-</mat-grid-list>

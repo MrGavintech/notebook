@@ -20,3 +20,14 @@ body {
   z-index: 1;
 }
 
+.mat-form-field-wrapper {
+  height: 100% !important;
+}
+
+.mat-form-field-flex {
+  height: 100% !important;
+}
+
+.mat-form-field-infix {
+  height: calc(100% - 40px);
+}

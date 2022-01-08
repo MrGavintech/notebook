@@ -35,4 +35,15 @@ export class NoteHomeComponent implements OnInit {
   selectedNote(note: any) {
     this.noteService.triggerSelectedNote(note);
   }
+
+  getTitleMessage(): string {
+    const notesCount = this.notes.length;
+    if (notesCount >= 2) {
+      return 'You have ' + notesCount + ' notes.';
+    } else if (notesCount === 1) {
+      return 'You have ' + notesCount + ' note.'
+    } else {
+      return 'You don\'t have any notes. Press the add button to add up to ' + this.limit + ' notes.'
+    }
+  }
 }
