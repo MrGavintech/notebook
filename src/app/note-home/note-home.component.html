@@ -1,11 +1,11 @@
 <div class="container">
-  <h3 style="padding: 20px;">{{this.getTitleMessage()}}</h3>
+  <h3 style="padding-bottom: 12px;">{{this.getTitleMessage()}}</h3>
   <div class="fixedbutton">
     <button (click)="addNote()" mat-fab color="primary" aria-label="Add a note!">
       <mat-icon>add</mat-icon>
     </button>
   </div>
-  <mat-grid-list cols="2" rowHeight="1:1">
+  <mat-grid-list [gutterSize]="'40px'" cols="3" rowHeight="3:2">
     <mat-grid-tile
       (click)="selectedNote(note)"
       style="cursor: pointer;"

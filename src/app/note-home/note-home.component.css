@@ -1,11 +1,12 @@
 mat-grid-tile {
   left: 115px;
   top: -15px;
-  background-color: rgba(184, 196, 100, 0.23);
+  background-color: rgba(255, 255, 255, 0.19);
   -webkit-box-shadow: 0 0 5px #888;
   -moz-box-shadow: 0 0 5px #888;
   box-shadow: 2px 2px 2px #000;
   border-radius: 4px;
+  min-width: 180px;
 
   /*text-decoration: none;*/
   /*color: #000;*/

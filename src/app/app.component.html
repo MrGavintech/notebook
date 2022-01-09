@@ -5,12 +5,16 @@
                 [matTooltipPosition]="positionOptions[0]"
                 class="mat-home" routerLink="/">sticky_note_2
       </mat-icon>
+      <div matTooltip="Notes home"
+           [matTooltipPosition]="positionOptions[0]"
+           class="title-text mat-title" routerLink="/">Notes
+      </div>
     </div>
     <mat-nav-list>
       <a mat-list-item (click)="selectedNote(note)"
          *ngFor="let note of notes; let i = index"
          [routerLink]="['/note', note.id]">
-        <mat-icon>note</mat-icon>
+        <mat-icon style="padding: 0 6px 0 0;">note</mat-icon>
         Note {{note.id}}
       </a>
     </mat-nav-list>
