@@ -4,7 +4,8 @@ This app uses Session storage to store user notes. It uses angular material for 
 ## Example in-app-use
 Quick demonstration
 
-![Notebook](https://user-images.githubusercontent.com/36651921/148663733-5ebe1805-f294-46f2-8c50-b14ba9740819.gif)
+![Notebook](https://user-images.githubusercontent.com/36651921/148691790-485ed084-bfac-4ff7-8cc8-62450a7ad4d3.gif)
+
 
 ## What could be better and worked as issue requests?
 The project was timed, so I always feel like there's room for improvement on a timed exercise. These are the following items I'd like to address in the code base
